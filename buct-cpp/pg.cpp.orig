@@ -1,0 +1,98 @@
+//
+// Created by hsy on 2024/9/7.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+const int N = 200005;
+const int M = 2e5;
+
+struct node
+{
+    int l, r, lz;
+    int mx;
+} tr[N << 2];
+void pushdown(int i)
+{
+    if (!tr[i].lz)
+    {
+        return;
+    }
+    tr[i << 1].mx += tr[i].lz;
+    tr[i << 1].lz += tr[i].lz;
+    tr[i << 1 | 1].mx += tr[i].lz;
+    tr[i << 1 | 1].lz += tr[i].lz;
+    tr[i].lz = 0;
+}
+void build(int i, int l, int r)
+{
+    tr[i].l = l, tr[i].r = r, tr[i].lz = 0;
+    if (l == r)
+    {
+        tr[i].mx = 0;
+    }
+    else
+    {
+        int mid = (l + r) >> 1;
+        if (l <= mid)
+        {
+            build(i << 1, l, mid);
+        }
+        if (r > mid)
+        {
+            build(i << 1 | 1, mid + 1, r);
+        }
+    }
+    tr[i].mx = max(tr[i << 1].mx, tr[i << 1 | 1].mx);
+}
+void mod(int i, int l, int r, int k)
+{
+    if (l <= tr[i].l && tr[i].r <= r)
+    {
+        tr[i].mx += k;
+        tr[i].lz += k;
+    }
+    else
+    {
+        pushdown(i);
+        int mid = (tr[i].l + tr[i].r) >> 1;
+        if (l <= mid)
+        {
+            mod(i << 1, l, r, k);
+        }
+        if (r > mid )
+        {
+            mod(i << 1|1, l, r, k);
+        }
+        tr[i].mx = max(tr[i << 1].mx, tr[i << 1 | 1].mx);
+    }
+}
+int n, d, w;
+vector<pair<int, int>>s[M + 1];
+int main()
+{
+    scanf("%d%d%d", &n, &d, &w);
+    for (int i = 0; i < n; ++i)
+    {
+        int t, x;
+        scanf("%d%d", &t, &x);
+        if (t + 1 <= M)s[t + 1].push_back({x, -1});
+        s[max(t - d + 1, 0)].push_back({x, 1});
+    }
+    build(1, 1, M);
+    int ans = 0;
+    for (auto [x, y] : s[0])
+    {
+        mod(1, max(x - w + 1, 1), x, y);
+    }
+    for (int i = 1; i <= M; ++i)
+    {
+        for (auto [x, y] : s[i])
+        {
+            mod(1, max(x - w + 1, 1), x, y);
+        }
+        ans = max(ans, tr[1].mx);
+    }
+    printf("%d\n", ans);
+    return 0;
+}

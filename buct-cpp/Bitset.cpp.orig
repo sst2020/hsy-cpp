@@ -1,0 +1,19 @@
+//
+// Created by hsy on 2024/9/6.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+int main()
+{
+    int i = 0, n = 0, f = 0;
+    scanf("%d", &n);
+    while (n)
+    {
+        f += (n % 2) * pow(10, i);
+        n /= 2;
+        i++;
+    }
+    printf("%d", f);
+return 0;
+}
