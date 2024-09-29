@@ -1,0 +1,44 @@
+//
+// Created by hsy on 2024/9/8.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+int main()
+{
+    int n, a[55], b[55];
+    while (~scanf("%d", &n))
+    {
+        int ans = 1, f = 0, k = 0;
+        for (int i = 0; i < n; ++i)
+        {
+            scanf("%d", &a[i]);
+        }
+        sort(a, a + n);
+        b[0] = a[0];
+        for (int i = 1; i < n; ++i)
+        {
+            if (a[i] != a[i - 1])
+            {
+                b[++k] = a[i];
+            }
+        }
+        for (int i = 2; i <= k; ++i)
+        {
+            if ((b[i] - b[i - 1] == 1) && (b[i] - b[i - 2] == 2))
+            {
+                f = 1;
+                break;
+            }
+        }
+        if (f)
+        {
+            printf("YES\n");
+        }
+        else
+        {
+            printf("NO\n");
+        }
+    }
+    retrun 
+}

@@ -1,0 +1,19 @@
+//
+// Created by hsy on 2024/9/18.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+int main()
+{
+    string s;
+    cin >> s;
+    set <char> unique_chars;
+    for (char c : s)
+    {
+        unique_chars.insert(c);
+    }
+    unique_chars.erase('w');
+    cout << unique_chars.size() << endl;
+    return 
+}

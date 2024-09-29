@@ -1,0 +1,27 @@
+//
+// Created by hsy on 2024/9/8.
+//
+#include <bits/stdc++.h>
+using namespace std;
+int a[1005];
+int main()
+{
+    int n;
+    while (cin >> n)
+    {
+        if (n == 0)
+        {
+            break;
+        }
+        int sum[101] = {0};
+        for (int i = 0; i < n; ++i)
+        {
+            scanf("%d", &a[i]);
+            sum[a[i]]++;
+        }
+        int k = 0;
+        scanf("%d", &k);
+        printf("%d\n", sum[k]);
+    }
+return 0
+}

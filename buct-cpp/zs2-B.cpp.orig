@@ -1,0 +1,64 @@
+//
+// Created by hsy on 2024/9/18.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+long long gcd(long long a, long long b)
+{
+    return b == 0 ? a : gcd(b, a % b);
+}
+long long cal(long long x)
+{
+    long long tmp = 0;
+    while (x)
+    {
+        x /= 10;
+        tmp++;
+    }
+    return tmp;
+}
+
+int main()
+{
+    long long n;
+    scanf("%lld", &n);
+    long long p = 0, q = 1, r = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        p = p * i + q * n;
+        q *= i;
+        r = gcd(p, q);
+        p /= r;
+        q /= r;
+    }
+    r = p / q;
+    p %= q;
+    if (!p)
+    {
+        printf("%lld\n", r);
+    }
+    else
+    {
+        for (int i = cal(r); i > 0; --i)
+        {
+            printf(" ");
+        }
+        printf("%lld\n", p);
+        if (r)
+        {
+            printf("%lld", r);
+        }
+        for (int i = cal(q); i > 0; --i)
+        {
+            printf("-");
+        }
+        printf("\n");
+        for (int i = cal(r); i > 0; --i)
+        {
+            printf(" ");
+        }
+        printf("%lld ", q);
+    }
+return 0;
+}

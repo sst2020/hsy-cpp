@@ -1,0 +1,58 @@
+//
+// Created by hsy on 2024/9/29.
+//
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 100005;
+int n, k;
+int a[N], b[N];
+int ans, mx1, mx2 = 0x3f3f3f3f;
+int mn = 0x3f3f3f3f;
+int dic(int num)
+{
+    int res = -1;
+    int l = 0, r = ans - 1;
+    while (l <= r)
+    {
+        int mid = (l + r) >> 1;
+        if (b[mid] <= num)
+        {
+            res = mid;
+            l = mid + 1;
+        }
+        else
+        {
+            r = mid - 1;
+        }
+    }
+    return res;
+}
+int main()
+{
+    scanf("%d %d", &n, &k);
+    for (int i = 0; i < n; ++i)
+    {
+        scanf("%1d", &a[i]);
+        if (a[i] == 0)
+        {
+            b[ans++] = i;
+        }
+    }
+    k += 1;
+    for (int i = 0; i + k - 1 < ans; ++i)
+    {
+        int ll = b[i];
+        int rr = b[i + k - 1];
+        int mid2 = (ll + rr) >>1;
+        int pos = dic(mid2);
+        mx1 = max(abs(b[pos] - b[i]), abs(b[i + k - 1] - b[pos]));
+        if ((pos + 1) < ans)
+        {
+            mx2 = max(abs(b[pos + 1] - b[i]), abs(b[i + k - 1] - b[pos + 1]));
+        }
+        int t = min(mx1, mx2);
+        mn = min(mn, t);
+    }
+    printf("%d\n", mn);
+    return 0;
+}

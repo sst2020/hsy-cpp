@@ -1,0 +1,53 @@
+//
+// Created by hsy on 2024/9/28.
+//
+#include <bits/stdc++.h>
+
+using namespace std;
+int main()
+{
+    string a, b, c, d;
+    while (cin >> a)
+    {
+        cin >> b >> c >> d;
+        string s1, s2;
+        for (int i = 0; i < 2; ++i)
+        {
+            if (a[i] != 'X')
+            {
+                s1 += a[i];
+            }
+        }
+        for (int i = 1; i >= 0; --i)
+        {
+            if (b[i] != 'X')
+            {
+                s1 += b[i];
+            }
+        }
+        s1 += s1;
+        for (int i = 0; i < 2; ++i)
+        {
+            if (c[i] != 'X')
+            {
+                s2 += c[i];
+            }
+        }
+        for (int i = 1; i >= 0; --i)
+        {
+            if (d[i] != 'X')
+            {
+                s2 += d[i];
+            }
+        }
+        if (s1.find(s2) == string::npos)
+        {
+            puts("NO");
+        }
+        else
+        {
+            puts("YES");
+        }
+    }
+    return 0;
+}
